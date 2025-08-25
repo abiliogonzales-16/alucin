@@ -16,11 +16,10 @@ def crear_tabla():
     ''')
     baseDeDatos.commit()
 
-# Función para agregar palabras a la base de datos
-def agregar_palabra(palabra, descripcion):
-    # Validar que no estén vacíos
+def agregar(palabra, descripcion):
+
     if not palabra.strip() or not descripcion.strip():
-        print("No puedes agregar palabras o descripciones vacías.")
+        print("No puedes agregar palabras o descripciones vacia.")
         return
 
     # Verificar si la palabra ya existe en la base de datos
@@ -35,7 +34,7 @@ def agregar_palabra(palabra, descripcion):
     print(f"La palabra '{palabra}' ha sido agregada correctamente.")
 
 # Función para obtener una palabra aleatoria
-def obtener_palabra_aleatoria():
+def aleatoria():
     cursor.execute("SELECT palabra, descripcion FROM palabras")
     todas_las_palabras = cursor.fetchall()
     if todas_las_palabras:
@@ -44,7 +43,7 @@ def obtener_palabra_aleatoria():
         return None
 
 # Función para eliminar palabras
-def eliminar_palabra(palabra):
+def eliminar(palabra):
     cursor.execute("DELETE FROM palabras WHERE palabra = ?", (palabra,))
     baseDeDatos.commit()
     print(f"La palabra '{palabra}' ha sido eliminada de la base de datos.")
@@ -63,5 +62,5 @@ if __name__ == "__main__":
         if palabra.lower() == "salir":
             break
         descripcion = input("Escribe una descripción para la palabra: ")
-        agregar_palabra(palabra, descripcion)
+        agregar(palabra, descripcion)
     cerrar_bd()
