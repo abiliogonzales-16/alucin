@@ -1,39 +1,79 @@
-from tkinter import  *
+from customtkinter import *
 
-def juggar():
-    ventana = Toplevel(app)
-    etiqueta = Label(ventana,text="kfjhskfjh")
-    ventana.title("ventana emergente")
-    etiqueta.pack()
+set_appearance_mode("dark")
+set_default_color_theme("dark-blue")
 
 
-# no esta en uso
-
-def salir ():
-    sali = ventana.destroy
-
-
-
-'''
-def calculate():
-    resul = eval(caja1.get())
-    caja1.delete(0, END)
-    caja1.insert(END, str(resul))
-
-otro.pop(actual)
-            cuaderno.forget(actual)
-'''
-
-
-app = Tk ()
-
+# se cre el incio de la app
+app = CTk ()
 app.title("Ahogado")
 
-ventana = Tk
+#pantalla inicial ========
+ventana_inicial = CTkFrame(app)
+ventana_inicial.pack()
 
-btn = Button(app,text="jugar ",command=juggar)
-btn1 = Button(app,text="salir ", command=salir )
+titulo = CTkLabel(ventana_inicial, text="Bienvenido ", font=("Arial", 20))
+titulo.pack(pady=30)
 
-btn1.pack()
-btn.pack()
+btn_jugar = CTkButton(ventana_inicial, text="Jugar", width=200, height=40)
+btn_jugar.pack(pady=10)
+
+btn_salir = CTkButton(ventana_inicial, text="Salir", width=200, height=40, command=app.quit)
+btn_salir.pack(pady=10)
+
+#fin de la pantalla inicial
+#==========
+
+#ventana del juego inial =======
+pantalla_juego = CTkFrame(app)
+
+# Acciones
+#
+acciones = CTkFrame(pantalla_juego)
+acciones.pack(pady=10, padx=10)
+
+btn_salir = CTkButton(pantalla_juego, text="Salir", width=200, height=40, command=app.quit)
+btn_salir.pack(pady=10)
+
+
+CTkLabel(acciones, text="Acciones", font=("Arial", 16)).pack(anchor="w", padx=10)
+CTkButton(acciones, text="Nueva palabra").pack(side="left", padx=5)
+CTkButton(acciones, text="Agregar palabra").pack(side="left", padx=5)
+CTkButton(acciones, text="Eliminar palabra").pack(side="left", padx=5)
+
+
+#=============
+#Información
+info = CTkFrame(pantalla_juego)
+info.pack(pady=10, fill="x", padx=10)
+
+CTkLabel(info, text="Información", font=("Arial", 16)).pack(anchor="w", padx=10)
+CTkLabel(info, text="Descripción: ...").pack(anchor="w", padx=10)
+CTkLabel(info, text="Longitud: ...").pack(anchor="w", padx=10)
+CTkLabel(info, text="Intentos restantes: ...").pack(anchor="w", padx=10)
+#fin =========
+
+
+
+# Jugar
+jugar = CTkFrame(pantalla_juego)
+jugar.pack(pady=10, fill="x", padx=10)
+
+CTkLabel(jugar, text="Jugar", font=("Arial", 16)).pack(anchor="w", padx=10)
+CTkEntry(jugar, width=200).pack(side="left", padx=10)
+CTkButton(jugar, text="Comprobar").pack(side="left", padx=10)
+
+
+# ========================
+# Función para cambiar de pantalla
+# ========================
+#esto esta busado en GPT
+
+def mostrar_juego():
+    ventana_inicial.pack_forget()
+    pantalla_juego.pack()
+
+btn_jugar.configure(command=mostrar_juego)
+
+
 app.mainloop()
